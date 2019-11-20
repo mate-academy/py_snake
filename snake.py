@@ -16,7 +16,7 @@ def build_snake(string: str) -> str:
     """build snake"""
     # calculate size of matrix
     square_size = math.ceil(math.sqrt(len(string)))
-    matrix: list = []
+    matrix = []  # type: int
     # create matrix and fill it with dots
     for i in range(square_size):
         matrix.append([])
