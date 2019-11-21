@@ -1,14 +1,12 @@
 '''Snake'''
 import math
+from typing import List
 
 
 def spiral_print(end_row_index, end_column_index, array):
     '''
-
-    :param end_row_index:
-    :param end_column_index:
-    :param a:
-    :return:
+    Формування матриці в якій кожне значення комірки
+    це індекс літери яку потрібно вставити
     '''
     start_row_index = 0
     start_column_index = 0
@@ -51,6 +49,30 @@ def spiral_print(end_row_index, end_column_index, array):
     return array
 
 
+def fill_list(lngth, arr):
+    '''
+    Заповнення матриці точками для подальшої роботи з нею
+    '''
+    for i in range(lngth):
+        for _ in range(lngth):
+            arr[i].append('.')
+
+
+def form_result_line(lngth, arr, strng):
+    '''
+    Формування результуючого рядка
+    '''
+    result_line = ''
+    for i in range(lngth):
+        for j in range(lngth):
+            if arr[i][j] < len(strng):
+                result_line += strng[arr[i][j]]
+            else:
+                result_line += '.'
+        result_line += '\n'
+    return result_line[:-1]
+
+
 def build_snake(strng: str) -> str:
     '''
 
@@ -59,18 +81,10 @@ def build_snake(strng: str) -> str:
     '''
     lngth = math.sqrt(len(strng))
     lngth = (int(lngth) + 1) if lngth % 1 > 0 else int(lngth)
-    arr: list = [[] for _ in range(lngth)]
-    for i in range(lngth):
-        for j in range(lngth):
-            arr[i].append('-')
+
+    arr: List = [[] for _ in range(lngth)]
+    fill_list(lngth, arr)
     arr = spiral_print(lngth, lngth, arr)
-    result_line = ''
-    len_matrix = len(arr)
-    for i in range(len_matrix):
-        for j in range(len_matrix):
-            if arr[i][j] < len(strng):
-                result_line += strng[arr[i][j]]
-            else:
-                result_line += '.'
-        result_line += '\n'
-    return result_line[:-1]
+    result_line = form_result_line(lngth, arr, strng)
+
+    return result_line
